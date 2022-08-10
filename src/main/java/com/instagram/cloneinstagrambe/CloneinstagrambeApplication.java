@@ -9,7 +9,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.PostConstruct;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @SpringBootApplication
 public class CloneinstagrambeApplication {
@@ -35,38 +37,33 @@ public class CloneinstagrambeApplication {
             roleUser.setName("ROLE_USER");
             roleService.save(roleUser);
         }
-//        if (users.isEmpty()) {
-//
-//            Cart cart = new Cart();
-////            cartService.save(cart);
-//
-//
-//
-//
-//            User admin = new User();
-//            Set<Role> roles = new HashSet<>();
-//            Role roleAdmin = new Role();
-//            roleAdmin.setId(1L);
-//            roleAdmin.setName("ROLE_ADMIN");
-//            roles.add(roleAdmin);
-//            admin.setUsername("admin");
-//            admin.setPassword("123456");
-//            admin.setRoles(roles);admin.setFullName("Hoa bu dic");
-//            admin.setCart(cart);
-//            userService.save(admin);
-//
-//
-//            admin = new User();
-//            roleAdmin.setId(1L);
-//            roleAdmin.setName("ROLE_ADMIN");
-//            roles.add(roleAdmin);
-//            admin.setUsername("admin2");
-//            admin.setPassword("123456");
-//            admin.setRoles(roles);admin.setFullName("Hoa bu dic");
-//
-//            userService.save(admin);
-//
-//
-//        }
+        if (users.isEmpty()) {
+
+
+//            cartService.save(cart);
+
+
+
+
+            User admin = new User();
+            Set<Role> roles = new HashSet<>();
+            Role roleAdmin = new Role();
+            roleAdmin.setId(1L);
+            roleAdmin.setName("ROLE_ADMIN");
+            roles.add(roleAdmin);
+
+            admin.setUsername("thuhoatang");
+            admin.setPassword("12345");
+            admin.setPhone("84 905 589 210");
+            admin.setFullName("Tăng Thu Hòa");
+
+            admin.setRoles(roles);
+            userService.save(admin);
+
+
+
+
+
+        }
     }
 }
