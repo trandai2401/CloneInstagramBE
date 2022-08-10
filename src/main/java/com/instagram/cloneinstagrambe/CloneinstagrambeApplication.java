@@ -58,7 +58,7 @@ public class CloneinstagrambeApplication {
             roles.add(roleAdmin);
 
             admin.setUsername("thuhoatang");
-            admin.setPassword("12345");
+            admin.setPassword("12345678");
             admin.setPhone("84 905 589 210");
             admin.setFullName("Tăng Thu Hòa");
 
