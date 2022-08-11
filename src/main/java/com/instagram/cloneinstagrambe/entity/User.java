@@ -9,7 +9,7 @@ import java.util.Set;
 @Data
 @Entity
 public class User extends BaseEntity {
-    @Column(nullable = false)
+    @Column
     private String phone;
 
     @Column(nullable = false)
