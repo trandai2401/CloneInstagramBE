@@ -61,6 +61,7 @@ public class CloneinstagrambeApplication {
             admin.setPassword("12345678");
             admin.setPhone("84 905 589 210");
             admin.setFullName("Tăng Thu Hòa");
+            admin.setEmail("thuhoatang@gmail.com");
 
             admin.setRoles(roles);
             userService.save(admin);

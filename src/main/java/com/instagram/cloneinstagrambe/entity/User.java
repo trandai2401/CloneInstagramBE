@@ -9,13 +9,13 @@ import java.util.Set;
 @Data
 @Entity
 public class User extends BaseEntity {
-    @Column
+//    @Column(unique = true)
     private String phone;
 
     @Column(nullable = false)
     private String fullName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column(nullable = false)
@@ -23,7 +23,10 @@ public class User extends BaseEntity {
 
     private String website;
     private String bio;
+
+    @Column(nullable = false, unique = true)
     private String email;
+
     private String gender;
     private String avatar;
     private Integer posts;
