@@ -1,6 +1,9 @@
 package com.instagram.cloneinstagrambe.service.user;
 
 import com.instagram.cloneinstagrambe.configuration.security.UserPrinciple;
+import com.instagram.cloneinstagrambe.dto.imgBB.Data;
+import com.instagram.cloneinstagrambe.dto.imgBB.ResponseImgBB;
+import com.instagram.cloneinstagrambe.entity.Image;
 import com.instagram.cloneinstagrambe.entity.User;
 import com.instagram.cloneinstagrambe.reponsitory.IUserRepository;
 import com.instagram.cloneinstagrambe.service.imgBB.IImgBBService;
@@ -69,9 +72,19 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public String changeAvatar(MultipartFile file) throws IOException {
+    public Image changeAvatar(MultipartFile file) throws IOException {
 
-        imgBBService.save(file);
-        return "Chờ tí nha";
+        ResponseImgBB reps= imgBBService.save(file);
+        Data data = reps.getData();
+        Image img = new Image();
+        img.setFilename(data.getImage().getFilename());
+        img.setName(data.getImage().getName());
+        img.setMime(data.getImage().getMime());
+        img.setExtension(data.getImage().getExtension());
+        img.setUrl(data.getImage().getUrl());
+        img.setThumb_url(data.getThumb().getUrl());
+        img.setMedium_url(data.getMedium().getUrl());
+
+        return img;
     }
 }

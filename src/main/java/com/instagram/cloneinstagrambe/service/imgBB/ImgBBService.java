@@ -1,5 +1,7 @@
 package com.instagram.cloneinstagrambe.service.imgBB;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.instagram.cloneinstagrambe.dto.imgBB.ResponseImgBB;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
@@ -18,14 +20,14 @@ public class ImgBBService  implements IImgBBService{
     static final String URL = "https://api.imgbb.com/1/upload/";
 
     @Override
-    public String save(MultipartFile file) throws IOException {
+    public ResponseImgBB save(MultipartFile file) throws IOException {
 //        byte []b = file.getBytes();
         String s = Base64.getEncoder().encodeToString(file.getBytes());
-        callApi(s);
-        return "Từ từ chờ xíu";
+
+        return  callApi(s);
     }
 
-    private void callApi(String image) throws ClientProtocolException, IOException {
+    private ResponseImgBB callApi(String image) throws ClientProtocolException, IOException {
 
         HttpResponse httpResponse = Request.Post("https://api.imgbb.com/1/upload")
                 .bodyForm(Form.form().add("key", "a57fc02e85ffcaf0c054a9aeaf39bb36").add("image", image).build())
@@ -42,8 +44,12 @@ public class ImgBBService  implements IImgBBService{
         System.out.println("Content:");
         String content = IOUtils.toString(httpResponse.getEntity().getContent(), "UTF-8");
 //	    String content = response.returnContent().asString();
-        System.out.println(content);
+        ObjectMapper objectMapper = new ObjectMapper();
 
+
+        ResponseImgBB resp = objectMapper.readValue(content, ResponseImgBB.class);
+        System.out.println(resp);
+return resp;
 
     }
 }

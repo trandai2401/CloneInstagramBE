@@ -85,10 +85,10 @@ public class UserAPI {
 
     @PostMapping("/change-avatar")
     public ResponseEntity<?> changeAvatar(@ModelAttribute("file") FileAvatar file) throws IOException {
-        userService.changeAvatar( file.getFile());
+//        userService.changeAvatar( file.getFile());
 //        String s = Base64.getEncoder().encodeToString(file.getFile().getBytes());
 
-        return ResponseEntity.ok("okkk");
+        return ResponseEntity.ok(userService.changeAvatar( file.getFile()));
 
     }
 
