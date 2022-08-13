@@ -78,6 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-ui/**").permitAll()
                 .antMatchers("/v2/api-docs").permitAll()
                 .antMatchers("/api/v2/api-docs").permitAll()
+                .antMatchers(HttpMethod.POST,"/api/users/change-avatar").authenticated()
 
                 .anyRequest().authenticated()
                 .and().csrf().disable();
