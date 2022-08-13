@@ -1,6 +1,7 @@
 package com.instagram.cloneinstagrambe.api;
 
 import com.instagram.cloneinstagrambe.dto.JwtResponse;
+import com.instagram.cloneinstagrambe.dto.request.FileAvatar;
 import com.instagram.cloneinstagrambe.entity.Role;
 import com.instagram.cloneinstagrambe.entity.User;
 import com.instagram.cloneinstagrambe.service.JwtService;
@@ -13,9 +14,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -70,13 +74,36 @@ public class UserAPI {
     }
 
     @GetMapping("/random-username")
-    public ResponseEntity<?> randomUsername(@RequestParam(name = "q") String str) {
+    public ResponseEntity<String> randomUsername(@RequestParam(name = "q") String str) {
         String usernameNew="";
         do {
             usernameNew = removeAccent(str) + ((int) (Math.random() * (10000)));
         } while (!checkUsername(usernameNew));
         return ResponseEntity.ok(usernameNew);
     }
+
+
+    @PostMapping("/change-avatar")
+    public ResponseEntity<?> changeAvatar(@ModelAttribute("file") FileAvatar file) throws IOException {
+        userService.changeAvatar( file.getFile());
+//        String s = Base64.getEncoder().encodeToString(file.getFile().getBytes());
+
+        return ResponseEntity.ok("okkk");
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Nếu trùng người dugnf thì sẽ trả về false, không trùng trả về true
     private Boolean checkUsername(String username) {
@@ -92,9 +119,6 @@ public class UserAPI {
     }
 
 
-    public static void main(String[] args) {
-        System.out.println(removeAccent("Trần Đ ại ") + ((int) (Math.random() * (10000))));
-    }
 
     private static final char[] SOURCE_CHARACTERS = {'À', 'Á', 'Â', 'Ã', 'È', 'É',
             'Ê', 'Ì', 'Í', 'Ò', 'Ó', 'Ô', 'Õ', 'Ù', 'Ú', 'Ý', 'à', 'á', 'â',

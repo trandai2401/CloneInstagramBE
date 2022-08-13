@@ -3,12 +3,15 @@ package com.instagram.cloneinstagrambe.service.user;
 import com.instagram.cloneinstagrambe.configuration.security.UserPrinciple;
 import com.instagram.cloneinstagrambe.entity.User;
 import com.instagram.cloneinstagrambe.reponsitory.IUserRepository;
+import com.instagram.cloneinstagrambe.service.imgBB.IImgBBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @Service
@@ -17,6 +20,8 @@ public class UserService implements IUserService {
     private IUserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private IImgBBService imgBBService;
 
     @Override
     public Iterable findAll() {
@@ -61,5 +66,12 @@ public class UserService implements IUserService {
     @Override
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public String changeAvatar(MultipartFile file) throws IOException {
+
+        imgBBService.save(file);
+        return "Chờ tí nha";
     }
 }
