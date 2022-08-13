@@ -91,7 +91,7 @@ public class UserService implements IUserService {
         img.setExtension(data.getImage().getExtension());
         img.setUrl(data.getImage().getUrl());
         img.setThumb_url(data.getThumb().getUrl());
-        img.setMedium_url(data.getMedium().getUrl());
+        img.setMedium_url(data.getMedium().getUrl() == null ? null : data.getMedium().getUrl());
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
