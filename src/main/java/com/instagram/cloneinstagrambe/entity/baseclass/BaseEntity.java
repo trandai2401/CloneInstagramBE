@@ -1,5 +1,6 @@
-package com.instagram.cloneinstagrambe.entity;
+package com.instagram.cloneinstagrambe.entity.baseclass;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
@@ -14,26 +15,29 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @Data
 @EntityListeners(AuditingEntityListener.class)
+public  class BaseEntity{
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO,generator = "native")
+//    @GenericGenerator(name = "native", strategy = "native")
+//    private Long id;
 
-public class BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO,generator = "native")
-    @GenericGenerator(name = "native", strategy = "native")
-    private Long id;
-
+    @JsonIgnore
     @Column(updatable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
+    @JsonIgnore
     private LocalDateTime modifiedAt;
 
     @CreatedBy
+    @JsonIgnore
     @Column( nullable = false, updatable = false)
     public String createdBy;
 
 
     @LastModifiedBy
+    @JsonIgnore
     @Column( nullable = false, updatable = false)
     private String modifiedBy;
 

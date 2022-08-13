@@ -32,23 +32,13 @@ public class ImgBBService  implements IImgBBService{
         HttpResponse httpResponse = Request.Post("https://api.imgbb.com/1/upload")
                 .bodyForm(Form.form().add("key", "a57fc02e85ffcaf0c054a9aeaf39bb36").add("image", image).build())
                 .execute().returnResponse();
-
-        System.out.println("Protocol: " + httpResponse.getProtocolVersion());
-        System.out.println("Status:" + httpResponse.getStatusLine().toString());
-        System.out.println("Content type:" + httpResponse.getEntity().getContentType());
-        System.out.println("Locale:" + httpResponse.getLocale());
-        System.out.println("Headers:");
-        for(Header header : httpResponse.getAllHeaders()) {
-            System.out.println("          " + header.getName()+": " + header.getValue());
-        }
-        System.out.println("Content:");
+//        System.out.println("Content:");
         String content = IOUtils.toString(httpResponse.getEntity().getContent(), "UTF-8");
-//	    String content = response.returnContent().asString();
         ObjectMapper objectMapper = new ObjectMapper();
 
 
         ResponseImgBB resp = objectMapper.readValue(content, ResponseImgBB.class);
-        System.out.println(resp);
+
 return resp;
 
     }

@@ -1,5 +1,6 @@
 package com.instagram.cloneinstagrambe;
 
+import com.instagram.cloneinstagrambe.entity.Image;
 import com.instagram.cloneinstagrambe.entity.Role;
 import com.instagram.cloneinstagrambe.entity.User;
 import com.instagram.cloneinstagrambe.service.role.IRoleService;
@@ -64,6 +65,13 @@ public class CloneinstagrambeApplication {
             admin.setEmail("thuhoatang@gmail.com");
 
             admin.setRoles(roles);
+//
+//            Image img = new Image();
+//            img.setId("ádasdasd");
+//            admin.setAvatar(img);
+
+
+
             userService.save(admin);
 
 

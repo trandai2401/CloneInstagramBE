@@ -1,5 +1,7 @@
 package com.instagram.cloneinstagrambe.entity;
 
+import com.instagram.cloneinstagrambe.entity.baseclass.BaseClassLong;
+import com.instagram.cloneinstagrambe.entity.baseclass.BaseEntity;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -9,7 +11,7 @@ import javax.persistence.PrePersist;
 
 @Data
 @Entity
-public class Profile extends BaseEntity {
+public class Profile extends BaseClassLong {
 
     private String website;
     private String bio;

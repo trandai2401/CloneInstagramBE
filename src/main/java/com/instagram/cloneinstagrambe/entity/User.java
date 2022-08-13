@@ -2,16 +2,16 @@ package com.instagram.cloneinstagrambe.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.instagram.cloneinstagrambe.entity.baseclass.BaseClassLong;
+import com.instagram.cloneinstagrambe.entity.baseclass.BaseEntity;
 import lombok.Data;
-import org.hibernate.annotations.Columns;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Data
 @Entity
-public class User extends BaseEntity {
+public class User extends BaseClassLong {
     //    @Column(unique = true)
     private String phone;
 
@@ -36,10 +36,16 @@ public class User extends BaseEntity {
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles;
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
 //    @JsonIgnore
     private Profile profile;
+
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "image_id", referencedColumnName = "id",nullable = true)
+    private Image avatar;
+
 
     @PrePersist
     void preInsert() {

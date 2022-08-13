@@ -35,7 +35,6 @@ public class DemoApi {
         User user2 =  userService.save(user);
         Profile profile =  user2.getProfile();
         user2.setProfile(profile);
-//        System.out.println(user.get());
         return ResponseEntity.ok(user2);
     }
 }

@@ -5,9 +5,13 @@ import com.instagram.cloneinstagrambe.dto.imgBB.Data;
 import com.instagram.cloneinstagrambe.dto.imgBB.ResponseImgBB;
 import com.instagram.cloneinstagrambe.entity.Image;
 import com.instagram.cloneinstagrambe.entity.User;
+import com.instagram.cloneinstagrambe.reponsitory.IImageReponsitory;
 import com.instagram.cloneinstagrambe.reponsitory.IUserRepository;
 import com.instagram.cloneinstagrambe.service.imgBB.IImgBBService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,6 +29,9 @@ public class UserService implements IUserService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private IImgBBService imgBBService;
+
+    @Autowired
+    private IImageReponsitory imageReponsitory;
 
     @Override
     public Iterable findAll() {
@@ -55,7 +62,7 @@ public class UserService implements IUserService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> userOptional = userRepository.findByUsername(username);
-        System.out.println(username);
+
         if (!userOptional.isPresent()) {
             throw new UsernameNotFoundException(username);
         }
@@ -77,6 +84,7 @@ public class UserService implements IUserService {
         ResponseImgBB reps= imgBBService.save(file);
         Data data = reps.getData();
         Image img = new Image();
+        img.setId(data.getId());
         img.setFilename(data.getImage().getFilename());
         img.setName(data.getImage().getName());
         img.setMime(data.getImage().getMime());
@@ -85,6 +93,16 @@ public class UserService implements IUserService {
         img.setThumb_url(data.getThumb().getUrl());
         img.setMedium_url(data.getMedium().getUrl());
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
+
+        User user = userRepository.findById(userPrincipal.getId()).get();
+//        img.setUser(user);
+//        img =  imageReponsitory.save(img);
+
+        user.setAvatar(img);
+        userRepository.save(user);
         return img;
     }
 }
